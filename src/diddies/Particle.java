@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RadialGradientPaint;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-
 /**
  * The graphical and logical encapsulation of a particle. Particle stores a
  * position and velocity, as well as a diameter. Diameter is used to calculate
@@ -16,6 +16,7 @@ import java.awt.geom.Point2D;
  * (bluer).
  *
  * @author Ryan Kenney
+ * @author Wade Harkins (vdtdev@gmail.com)
  */
 public class Particle {
     // Attributes
@@ -25,7 +26,7 @@ public class Particle {
     private Velocity velocity;
     private double mass;
     private Color color;
-
+    private float[] padding = {0f,1f};
     // Constructors
     /**
      * Create a Particle at <i>position</i> with a mass of <i>mass</i> and a
@@ -113,8 +114,9 @@ public class Particle {
      */
     public void draw(Graphics g) {
 	Graphics2D g2 = (Graphics2D) g;
-
+        
 	g2.setColor(color);
+        g2.setPaint(fill());
 	g2.fillOval((int) position.getX(), (int) position.getY(), diameter, diameter);
     }
 
@@ -219,5 +221,16 @@ public class Particle {
      */
     public void setLocation(double x, double y) {
 	position.setLocation(x, y);
+    }
+    
+    /**
+     * Generates a radial gradient centered around the particle's origin
+     * @return Updated gradient paint
+     */
+    private RadialGradientPaint fill(){
+        
+     Color[] colors = {color.brighter().brighter().brighter(),color};
+     Point2D drawCenter = new Point2D.Double(position.getX()+(diameter/2.0),position.getY()+(diameter/2.0));
+     return new RadialGradientPaint(drawCenter,(float)(this.diameter/2f),padding,colors);
     }
 }

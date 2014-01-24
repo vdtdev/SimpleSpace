@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
  * Particles and listens to both MouseEvents and KeyboardEvents for control.
  *
  * @author Ryan Kenney
+ * @author Wade Harkins (vdtdev@gmail.com)
  */
 public class Space extends JPanel implements MouseListener, KeyListener {
     // Attributes
@@ -186,6 +188,8 @@ public class Space extends JPanel implements MouseListener, KeyListener {
     @Override
     public void paint(Graphics g) {// Init
 	Graphics2D g2 = (Graphics2D) g;
+        // Force Anti Aliasing :)
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 	g2.setColor(Color.RED);
 
 	// Draw background
@@ -205,9 +209,9 @@ public class Space extends JPanel implements MouseListener, KeyListener {
 	}
 
 	// Draw particles
-	data.drawAll(g);
+	data.drawAll(g2);
 
 	// Draw Menus
-	super.paint(g);
+	super.paint(g2);
     }
 }

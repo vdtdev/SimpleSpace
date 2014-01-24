@@ -20,7 +20,8 @@ public class SimpleSpace extends JFrame {
      * Creates a SimpleSpace with default settings
      */
     public SimpleSpace() {
-	initComponents();
+    	this.setTitle("SimpleSpace");
+    	initComponents();
     }
 
     // Methods

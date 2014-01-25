@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jan 24, 2014 6:22:39 PM                                                        
+
+     SimpleSpace    
+     Particle simulator
+                   
+     by Ryan Kenney; tweaked by Wade Harkins                                                  
+     ====================================================================== -->
+<project name="SimpleSpace" default="default">
+	<description>
+            Particle simulator
+    </description>
+	<property name="bindir" value="${basedir}\\bin" />
+	<property name="builddir" value="${basedir}\\build" />
+	<property name="jarfile" value="${ant.project.name}.jar" />
+	<property name="srcdir" value="${basedir}\\src" />
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="depends" description="Particle simulator">
+
+	</target>
+
+	<!-- ================================= 
+          target: build and package              
+         ================================= -->
+	<target name="build and package" depends="depends" description="Compile and generate jar">
+		<ant target="package" />
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: package                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="package">
+		<mkdir dir="${bindir}" />
+		<mkdir dir="${builddir}\\META-INF" />
+		<manifest file="${builddir}\\META-INF\\MANIFEST.MF">
+			<attribute name="Main-Class" value="diddies.SimpleSpace" />
+		</manifest>
+		<jar basedir="${builddir}" compress="on" destfile="${bindir}\\${jarfile}" manifest="${builddir}\\META-INF\\MANIFEST.MF">
+		</jar>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+		<mkdir dir="${builddir}" />
+		<javac srcdir="${srcdir}" destdir="${builddir}" />
+	</target>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" depends="" description="Clean build and binary directory">
+		<delete dir="${bindir}" description="Binary Directory" />
+		<delete dir="${builddir}" description="Class Directory" />
+	</target>
+
+</project>
